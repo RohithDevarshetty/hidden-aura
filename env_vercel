@@ -1,0 +1,69 @@
+# HiddenAura Production Environment Variables for Vercel
+# Copy these values to Vercel dashboard: Settings > Environment Variables
+
+# ============================================
+# APPLICATION
+# ============================================
+NEXT_PUBLIC_APP_URL=https://hidden-aura.vercel.app
+NEXT_PUBLIC_APP_NAME=HiddenAura
+
+# ============================================
+# DATABASE (Supabase PostgreSQL)
+# ============================================
+# Connection string from Supabase Settings > Database > Connection pooling (Session mode)
+DATABASE_URL=postgresql://postgres.wxjtwqyqutkfwzgceipa:CritiCal54%40Critics@aws-1-ap-south-1.pooler.supabase.com:5432/postgres
+
+# ============================================
+# SUPABASE (Optional - for future features)
+# ============================================
+NEXT_PUBLIC_SUPABASE_URL=https://wxjtwqyqutkfwzgceipa.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY_HERE
+SUPABASE_SERVICE_ROLE_KEY=YOUR_SUPABASE_SERVICE_ROLE_KEY_HERE
+
+# ============================================
+# NEXTAUTH
+# ============================================
+# Replace with your actual Vercel domain when deployed
+NEXTAUTH_URL=https://hidden-aura.vercel.app
+# Generate with: openssl rand -base64 32
+NEXTAUTH_SECRET=B8aBkw7Y5qxRCAQoCoqfbr0iSnvxmqx5pyLf2F8Qh4A=
+
+# ============================================
+# RESEND EMAIL
+# ============================================
+# From Resend dashboard: https://resend.com/api-keys
+RESEND_API_KEY=re_YOUR_RESEND_API_KEY_HERE
+# Use onboarding@resend.dev for testing, or your custom domain
+RESEND_FROM_EMAIL=onboarding@resend.dev
+
+# ============================================
+# REDIS (Upstash) - For Rate Limiting
+# ============================================
+# From Upstash console: https://console.upstash.com
+UPSTASH_REDIS_REST_URL=YOUR_UPSTASH_REDIS_REST_URL_HERE
+UPSTASH_REDIS_REST_TOKEN=YOUR_UPSTASH_REDIS_REST_TOKEN_HERE
+
+# ============================================
+# OPTIONAL: Push Notifications (OneSignal)
+# ============================================
+NEXT_PUBLIC_ONESIGNAL_APP_ID=YOUR_ONESIGNAL_APP_ID_HERE
+ONESIGNAL_API_KEY=YOUR_ONESIGNAL_API_KEY_HERE
+
+# ============================================
+# OPTIONAL: Captcha (hCaptcha)
+# ============================================
+NEXT_PUBLIC_HCAPTCHA_SITE_KEY=YOUR_HCAPTCHA_SITE_KEY_HERE
+HCAPTCHA_SECRET_KEY=YOUR_HCAPTCHA_SECRET_KEY_HERE
+
+# ============================================
+# OPTIONAL: SMS (Twilio)
+# ============================================
+TWILIO_ACCOUNT_SID=YOUR_TWILIO_SID_HERE
+TWILIO_AUTH_TOKEN=YOUR_TWILIO_AUTH_TOKEN_HERE
+TWILIO_PHONE_NUMBER=+1234567890
+
+# ============================================
+# OPTIONAL: Analytics (PostHog)
+# ============================================
+NEXT_PUBLIC_POSTHOG_KEY=YOUR_POSTHOG_KEY_HERE
+NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com

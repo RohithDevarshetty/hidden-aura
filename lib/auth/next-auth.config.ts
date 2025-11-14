@@ -1,5 +1,4 @@
 import { NextAuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import prisma from '../db/prisma';
@@ -8,18 +7,6 @@ import { getUserByAccessCode } from './access-code';
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-      async profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture,
-        };
-      },
-    }),
     CredentialsProvider({
       id: 'access-code',
       name: 'Access Code',
@@ -57,22 +44,9 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         token.sub = user.id;
-      }
-      if (account?.provider === 'google') {
-        // Link Google account to existing user if needed
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email! },
-        });
-
-        if (existingUser && !existingUser.googleId) {
-          await prisma.user.update({
-            where: { id: existingUser.id },
-            data: { googleId: account.providerAccountId },
-          });
-        }
       }
       return token;
     },
