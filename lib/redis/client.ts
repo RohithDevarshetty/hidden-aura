@@ -8,7 +8,7 @@ export function getRedis(): Redis {
     const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
     // Check if Redis is properly configured
-    if (!url || !token || url.startsWith('your-') || token.startsWith('your-')) {
+    if (!url || !token || url.startsWith('your-') || url.startsWith('YOUR_') || token.startsWith('your-') || token.startsWith('YOUR_')) {
       console.warn('Redis credentials not found or not configured. Rate limiting and caching will be disabled.');
       // Return a mock Redis client for development
       return {
