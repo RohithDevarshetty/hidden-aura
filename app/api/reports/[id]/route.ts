@@ -9,9 +9,10 @@ const updateSchema = z.object({
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await req.json();
 
     // Validate input
@@ -33,7 +34,7 @@ export async function PATCH(
 
     // Update report
     const report = await prisma.report.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         status,
         reviewedAt: new Date(),

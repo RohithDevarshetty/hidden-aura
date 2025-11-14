@@ -5,10 +5,11 @@ import { ApiResponse } from '@/types/api';
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession();
+    const { id } = await params;
 
     if (!session?.user?.name) {
       return NextResponse.json<ApiResponse>(
@@ -25,7 +26,7 @@ export async function DELETE(
 
     // Find the question
     const question = await prisma.question.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!question) {
@@ -57,7 +58,7 @@ export async function DELETE(
 
     // Soft delete the question by setting deletedAt
     const deletedQuestion = await prisma.question.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         deletedAt: new Date(),
       },

@@ -14,10 +14,10 @@ import { ApiResponse, SubmitAnswerResponse } from '@/types/api';
 // POST /api/questions/[id]/answers - Submit an anonymous answer
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const questionId = params.id;
+    const { id: questionId } = await params;
 
     // Check if question exists
     const question = await prisma.question.findUnique({

@@ -5,10 +5,11 @@ import { ApiResponse, ProfileResponse } from '@/types/api';
 // GET /api/profile/[username] - Get public profile
 export async function GET(
   req: NextRequest,
-  { params }: { params: { username: string } }
+  { params }: { params: Promise<{ username: string }> }
 ) {
   try {
-    const username = params.username.toLowerCase().replace('@', '');
+    const { username: rawUsername } = await params;
+    const username = rawUsername.toLowerCase().replace('@', '');
 
     // Get user
     const user = await prisma.user.findUnique({
