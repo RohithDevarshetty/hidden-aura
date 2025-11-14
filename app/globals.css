@@ -3,17 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  /* Dark mode - light text on dark backgrounds */
+  --foreground-rgb: 236, 239, 244;    /* snow.2 - light text */
+  --background-start-rgb: 46, 52, 64;  /* nord.0 - dark background */
+  --background-end-rgb: 59, 66, 82;    /* nord.1 - slightly lighter dark */
 }
 
 body {
@@ -31,3 +24,108 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Smooth page transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hero text stagger animation */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card hover scale animation */
+@keyframes cardHover {
+  to {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(136, 192, 208, 0.1);
+  }
+}
+
+/* Button glow on hover */
+@keyframes buttonGlow {
+  from {
+    box-shadow: 0 0 0px rgba(136, 192, 208, 0);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(136, 192, 208, 0.4);
+  }
+}
+
+/* Utility classes for animations */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+.animate-slide-in-up-delay-1 {
+  animation: slideInUp 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-up-delay-2 {
+  animation: slideInUp 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-up-delay-3 {
+  animation: slideInUp 0.6s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+/* Scrolling news headline animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.scrolling-text {
+  animation: scroll 18s linear infinite;
+  white-space: nowrap;
+}
+
+/* Page transition animation */
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-page-in {
+  animation: pageSlideIn 0.5s ease-out forwards;
+}
+
+/* Glass effect styling */
+@supports (backdrop-filter: blur(1px)) {
+  .glass-effect {
+    background: rgba(59, 66, 82, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}
+

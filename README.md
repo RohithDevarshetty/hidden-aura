@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Anonymous Q&A Platform
+
+A modern, Instagram-optimized platform for receiving anonymous answers from followers. Built with Next.js 14, TypeScript, Prisma, and Supabase.
+
+## Features
+
+- 🔒 **100% Anonymous** - Complete privacy for respondents
+- 📱 **Mobile-First Design** - Optimized for Instagram users
+- 🎨 **Beautiful Story Images** - Generate shareable story templates
+- ⚡ **Instant Notifications** - Email and push notifications
+- 🚀 **No Signup Required** - Quick access with access codes
+- 🔐 **Google OAuth** - Optional account upgrade
+- 📊 **Analytics** - Track engagement and answers
+- 🎭 **Multiple Templates** - Customizable story designs
+
+## Tech Stack
+
+- **Next.js 14** with TypeScript and App Router
+- **Prisma** ORM with PostgreSQL
+- **NextAuth.js** for authentication
+- **Tailwind CSS** for styling
+- **Redis** (Upstash) for rate limiting
+- **Satori** & **Sharp** for image generation
+- **Resend** for email notifications
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Set Up Environment Variables
+
+```bash
+cp .env.example .env.local
+```
+
+Fill in the required variables (at minimum: `DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXT_PUBLIC_APP_URL`).
+
+### 3. Set Up Database
+
+```bash
+# Generate Prisma client
+npx prisma generate
+
+# Run migrations
+npx prisma migrate deploy
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+anonymous-qa/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   ├── (auth)/            # Auth pages
+│   ├── (dashboard)/       # Protected pages
+│   └── @[username]/       # Public profiles
+├── components/            # React components
+├── lib/                  # Utilities & libraries
+├── prisma/              # Database schema
+└── types/               # TypeScript definitions
+```
 
-## Learn More
+## Key Features Implementation
 
-To learn more about Next.js, take a look at the following resources:
+### Authentication
+- Access code system (no password required)
+- Google OAuth integration
+- NextAuth.js session management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Rate Limiting
+- Device fingerprint-based limiting
+- IP-based rate limiting
+- Redis-powered with graceful fallback
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Image Generation
+- Satori for React-to-image conversion
+- Multiple customizable templates
+- Instagram story optimized (1080x1920)
 
-## Deploy on Vercel
+### Spam Prevention
+- hCaptcha integration
+- Device fingerprinting
+- Multi-layer rate limiting
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Routes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Authentication
+- `POST /api/auth/register` - Create new user
+- `POST /api/auth/login/code` - Login with access code
+- `GET /api/questions/check-username` - Check availability
+
+### Questions & Answers
+- `POST /api/questions` - Create question
+- `GET /api/questions` - List questions
+- `POST /api/questions/[id]/answers` - Submit answer
+- `GET /api/answers` - Get received answers
+
+### Other
+- `GET /api/profile/[username]` - Public profile
+- `GET /api/explore/trending` - Trending questions
+- `POST /api/images/generate/question` - Generate story image
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Import in Vercel
+3. Add environment variables
+4. Deploy
+
+### Required Services
+
+- **Database**: PostgreSQL (Supabase recommended)
+- **Redis**: Upstash (optional but recommended)
+- **Email**: Resend (optional)
+- **Captcha**: hCaptcha (optional)
+
+## Environment Variables
+
+See `.env.example` for all variables. Required:
+- `DATABASE_URL` - PostgreSQL connection
+- `NEXTAUTH_SECRET` - Auth secret (generate with `openssl rand -base64 32`)
+- `NEXT_PUBLIC_APP_URL` - Your app URL
+
+## Development Scripts
+
+```bash
+npm run dev          # Start dev server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Lint code
+npx prisma studio    # Open database GUI
+```
+
+## Security
+
+- Rate limiting on all sensitive endpoints
+- CAPTCHA verification for anonymous submissions
+- Device fingerprinting for spam prevention
+- IP address hashing for privacy
+- Input sanitization and validation
+- Secure session management
+
+## License
+
+MIT License - See LICENSE file for details
+
+## Support
+
+For issues and feature requests, please create an issue on GitHub.
