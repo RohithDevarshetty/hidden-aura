@@ -1,6 +1,5 @@
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { getUserByAccessCode } from './access-code';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -16,6 +15,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
+          const { getUserByAccessCode } = await import('./access-code');
           const user = await getUserByAccessCode(credentials.accessCode);
 
           if (!user) {
