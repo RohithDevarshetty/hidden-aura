@@ -1,0 +1,10 @@
+.env
+.env.local
+.env.*.local
+.git
+.gitignore
+README.md
+DEPLOYMENT.md
+VERCEL_SETUP.md
+SETUP.md
+*.md
