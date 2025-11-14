@@ -113,10 +113,13 @@ export async function POST(
       },
     });
 
-    // Increment answer count
+    // Increment answer count and view count
     await prisma.question.update({
       where: { id: questionId },
-      data: { answerCount: { increment: 1 } },
+      data: {
+        answerCount: { increment: 1 },
+        viewCount: { increment: 1 },
+      },
     });
 
     // Send notification to question owner
