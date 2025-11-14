@@ -101,7 +101,7 @@ export function StoryTemplateGenerator({ questionText, answerText, username }: S
   };
 
   const renderTemplate = () => {
-    if (styles.style === 'neon' && styles.hasGrid) {
+    if (styles.style === 'neon') {
       return (
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{
           backgroundImage: 'linear-gradient(0deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)',

@@ -62,7 +62,7 @@ export async function POST(
     const { answerText, captchaToken, deviceFingerprint } = result.data;
 
     // Hash device fingerprint and IP
-    const deviceHash = hashIdentifier(deviceFingerprint);
+    const deviceHash = deviceFingerprint ? hashIdentifier(deviceFingerprint) : 'unknown';
     const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
     const ipHash = hashIdentifier(ip);
 

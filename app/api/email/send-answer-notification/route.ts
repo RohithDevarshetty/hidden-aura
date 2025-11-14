@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json<ApiResponse>(
         {
           success: true,
-          message: 'Email notifications disabled for this user',
+          data: { skipped: true },
         },
         { status: 200 }
       );
@@ -111,7 +111,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json<ApiResponse>(
       {
         success: true,
-        message: 'Email notification sent successfully',
         data: result.data,
       },
       { status: 200 }

@@ -391,7 +391,7 @@ export default function DashboardPage() {
             <StoryTemplateGenerator
               questionText={storyData.text}
               answerText={storyData.answer}
-              username={session?.user?.name}
+              username={session?.user?.name || 'Anonymous'}
             />
           )}
         </DialogContent>
